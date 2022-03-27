@@ -39,6 +39,23 @@ loadModel = async function(e) {
     });
 }
 
+loadModelFile = async function(url) {
+    return new Promise((resolve) => {
+        let file = e.target.files[0];
+        let path = file.name;
+        let reader = new FileReader();
+        reader.readAsArrayBuffer(file);
+        reader.onload = function(ev) {
+            if (reader.readyState === 2) {
+                let buffer = reader.result;
+                let data = new Uint8Array(buffer);
+                cv.FS_createDataFile('/', path, data, true, false, false);
+                resolve(path);
+            }
+        }
+    });
+}
+
 postProcess = function(result, labels, frame) {
     let canvasOutput = document.getElementById('canvasOutput');
     const outputWidth = canvasOutput.width;
