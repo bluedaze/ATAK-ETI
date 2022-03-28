@@ -26,13 +26,15 @@
     <table>
         <tr>
             <td>
-                <div id="modelFile" hidden>
+                <div>
+                    <input id="modelFile" type="file">
                 </div>
             </td>
         </tr>
         <tr>
             <td>
-                <div id="configFile" hidden>
+                <div>
+                    <input id="configFile" type="file">
                 </div>
             </td>
         </tr>
@@ -131,18 +133,18 @@
         document.getElementById('modelmenu').innerHTML = `SSD`;
         modelPath = "model_files/SSD/mobilenet_iter_73000.caffemodel";
         configPath = "model_files/SSD/deploy.prototxt";
-        modelPath = loadModelFile(modelPath);
-        configPath = loadModelFile(configPath);
+<!--        modelPath = loadModelFile(modelPath);-->
+<!--        configPath = loadModelFile(configPath);-->
 
         document.getElementById('status').innerHTML = `The model file '${modelPath}' is created successfully.`;
     });
     let yoloselect = document.getElementById('Yolo');
     yoloselect.addEventListener('click', () => {
-        document.getElementById('modelmenu').innerHTML = `SSD`;
+        document.getElementById('modelmenu').innerHTML = `YOLO`;
         modelPath = "model_files/yolo/yolov2-tiny.weights";
         configPath = "model_files/yolo/yolov2-tiny.weights";
-        modelPath = loadModelFile(modelPath);
-        configPath = loadModelFile(configPath);
+<!--        modelPath = loadModelFile(modelPath);-->
+<!--        configPath = loadModelFile(configPath);-->
 
         document.getElementById('status').innerHTML = `The model file '${modelPath}' is created successfully.`;
     });
@@ -150,8 +152,6 @@
     utils.loadOpenCv(() => {
         startAndStop.removeAttribute('disabled');
     });
-    let modelPath = "http://pjreddie.com/media/files/darknet.weights";
-    let configPath = "https://github.com/pjreddie/darknet/blob/master/cfg/darknet.cfg";
     function onVideoStarted() {
         streaming = true;
         startAndStop.innerText = 'Stop';
