@@ -1,7 +1,7 @@
 body{
     padding-top:40px;
     margin-top: 0px;
-    background: #424242 !important;
+    background:  #212529 !important;
  }
 
 #canvasOutput {
@@ -31,17 +31,10 @@ color: #EAEAEA;
   font-weight: bold;
   color: white;
 }
-body {
-  background: #424242;
-}
 
 h2 {
     color: #ffffff;
   }
-
-body {
-  background: #424242;
-}
 
 .card-text{
     color: black;

@@ -1,0 +1,31 @@
+<ul class="nav fixed-bottom bg-dark nav-pills nav-fill">
+    <li class="nav-item">
+    <a {% if request.path == '/start' %}
+            class="active text-light nav-link"
+         {% else %}
+            class="nav-link text-light"
+         {% endif %} aria-current="page" href="/start">Home</a>
+  </li>
+  <li class="nav-item">
+    <a {% if request.path == '/registrants' %}
+            class="active text-light nav-link"
+         {% else %}
+            class="nav-link text-light"
+         {% endif %} aria-current="page" href="/registrants">Registered Users</a>
+  </li>
+  <li class="nav-item">
+        <a {% if request.path == '/recognitions' %}
+            class="active text-light nav-link"
+         {% else %}
+            class="nav-link text-light"
+         {% endif %} aria-current="page" href="/recognitions">Recognized Users</a>
+  </li>
+  <li class="nav-item">
+            <a {% if request.path == '/detections' %}
+            class="active text-light nav-link"
+         {% else %}
+            class="nav-link text-light"
+         {% endif %} aria-current="page" href="/detections">Detections</a>
+  </li>
+</ul>
+
