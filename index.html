@@ -134,22 +134,6 @@
             onVideoStopped();
         }
     });
-
-    let ssdselect = document.getElementById('mobilenet');
-    ssdselect.addEventListener('click', () => {
-        document.getElementById('modelmenu').innerHTML = `SSD`;
-        modelPath = loadModelFile('https://raw.githubusercontent.com/chuanqi305/MobileNet-SSD/blob/master/mobilenet_iter_73000.caffemodel','mobilenet_iter_73000.caffemodel');
-        configPath = loadModelFile('https://raw.githubusercontent.com/chuanqi305/MobileNet-SSD/master/deploy.prototxt','deploy.prototxt');
-        document.getElementById('status').innerHTML = `The model file '${modelPath}' is created successfully.`;
-        inputSize = [300, 300];
-        mean = [127.5, 127.5, 127.5];
-        std = 0.007843;
-        swapRB = false;
-        confThreshold = 0.5;
-        nmsThreshold = 0.4;
-        outType = 'SSD';
-        labelsUrl = "https://raw.githubusercontent.com/opencv/opencv/3.4/samples/data/dnn/object_detection_classes_pascal_voc.txt";
-    });
     let vehicle = document.getElementById('vehicleoption');
     vehicle.addEventListener('click', () => {
         document.getElementById('modelmenu').innerHTML = `Vehicle`;
