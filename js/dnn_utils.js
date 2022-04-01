@@ -39,24 +39,14 @@ loadModel = async function(e) {
     });
 }
 
-loadModelFile = async function(url) {
-    return new Promise((resolve) => {
-        let file = e.target.files[0];
-        let path = file.name;
-        let reader = new FileReader();
-        reader.readAsArrayBuffer(file);
-        reader.onload = function(ev) {
-            if (reader.readyState === 2) {
-                let buffer = reader.result;
-                let data = new Uint8Array(buffer);
-                cv.FS_createDataFile('/', path, data, true, false, false);
-                resolve(path);
-            }
-        }
-    });
+loadModelFile = async function(url, name) {
+    let response = await fetch(url);
+    let data = await response.arrayBuffer();
+    cv.FS_createDataFile('/', name, data, true, false, false);
+    return name;
 }
 
-postProcess = function(result, labels, frame) {
+postProcess = function(result, labels, frame, filter) {
     let canvasOutput = document.getElementById('canvasOutput');
     const outputWidth = canvasOutput.width;
     const outputHeight = canvasOutput.height;
@@ -76,7 +66,8 @@ postProcess = function(result, labels, frame) {
                 let scores = vector.slice(5, vecLength);
                 let classId = scores.indexOf(Math.max(...scores));
                 let confidence = scores[classId];
-                if (confidence > confThreshold) {
+                console.log(labels[classId]);
+                if (confidence > confThreshold && filter.includes(labels[classId])) {
                     let center_x = Math.round(vector[0] * outputWidth);
                     let center_y = Math.round(vector[1] * outputHeight);
                     let width = Math.round(vector[2] * outputWidth);
