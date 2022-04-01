@@ -210,6 +210,9 @@ function submit()
         if(XHR.readyState === XMLHttpRequest.DONE) {
             var status = XHR.status;
             if (status === 0 || (status >= 200 && status < 400)) {
+                console.log(XHR.responseText);
+                const data = JSON.parse(XHR.responseText);
+                console.log("Name of person is", data.Name);
                 var delayInMilliseconds = 1000; //1 second
                 setTimeout(function() {
                     create_bio(data.Name, data.ID_NUM);
