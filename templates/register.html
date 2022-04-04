@@ -206,10 +206,10 @@ function create_form(){
 }
 
 function encode_data(){
-    let student_id = document.getElementById('id_num').value;
-    let student_name = document.getElementById('name').value;
+    let user_id = document.getElementById('id_num').value;
+    let user_name = document.getElementById('name').value;
     b64encoded = b64encoded.replace('data:image/jpeg;base64,', '');
-    let data = {id: student_id, name: student_name, image: b64encoded};
+    let data = {id_num: user_id, name: user_name, image: b64encoded};
     let urlEncodedData = "",
         urlEncodedDataPairs = [],
         name;
@@ -221,32 +221,14 @@ function encode_data(){
 }
 
 
-// function submit()
-// {
 
-//     let urlEncodedData = encode_data()
-//     const XHR = new XMLHttpRequest();
-//     XHR.addEventListener( 'load', function(event) {
-//     console.log( 'Yeah! Data sent and response loaded.' );
-//     });
-
-//     XHR.addEventListener( 'error', function(event) {
-//     console.log( 'Oops! Something went wrong.' );
-//     });
-
-//     XHR.open( 'POST', '/register' );
-//     XHR.setRequestHeader( 'Content-Type', 'application/x-www-form-urlencoded' );
-//     XHR.send( urlEncodedData );
-
-//     location.assign('/start');
-// }
 
 function submit()
 {
 
     let urlEncodedData = encode_data()
     const XHR = new XMLHttpRequest();
-    XHR.open('POST', '/register');
+    XHR.open('POST', '/save');
     XHR.onreadystatechange = function () {
         if(XHR.readyState === XMLHttpRequest.DONE) {
             var status = XHR.status;
