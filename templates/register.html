@@ -22,6 +22,7 @@
 <script type='text/javascript'>
 var b64encoded = '';
 var streaming = false;
+var elementWith;
 function init()
 {
     let video = document.getElementById('videoInput');
@@ -42,8 +43,8 @@ function init()
                 // if (video.width > screenWidth || headerHeight + video.height + inputformHeight > screenHeight){
                 //     ratio = Math.min(screenWidth / (video.width * 1.0), screenHeight / ((headerHeight + video.height + inputformHeight) * 1.0));
                 // }
-                container.style.width = Math.round(video.width * ratio) + 'px';
-                container.style.height = Math.round(video.height * ratio) + 'px';
+                // container.style.width = Math.round(video.width * ratio) + 'px';
+                // container.style.height = Math.round(video.height * ratio) + 'px';
                 canvasOutput.width = Math.round(video.width * ratio);
                 canvasOutput.height = Math.round(video.height * ratio);
                 load_cascade();
@@ -261,6 +262,7 @@ function submit()
                         Your face is registered when the green box is displayed
                     </div>
             </h4>
+            
             <div id="video-container">
                 <video autoplay="autoplay" class="hidden" id="videoInput" muted></video>
                 <canvas id="canvasOutput" style="background: url('/static/camera2.png')"></canvas>

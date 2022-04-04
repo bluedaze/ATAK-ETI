@@ -24,18 +24,18 @@ function init()
         .then(function (stream) {
                 video.srcObject = stream;
             video.addEventListener('canplay', () => {
-                var screenWidth = $(document).width();
-                var screenHeight = $(document).height();
-                var headerHeight = $('#header').height();
-                var messageboxHeight = $('#messagebox').height();
+                // var screenWidth = $(document).width();
+                // var screenHeight = $(document).height();
+                // var headerHeight = $('#header').height();
+                // var messageboxHeight = $('#messagebox').height();
                 var ratio = 1.0;
                 video.width = video.videoWidth;
                 video.height = video.videoHeight;
-                if (video.width > screenWidth || video.height + headerHeight + messageboxHeight > screenHeight){
-                    ratio = Math.min(screenWidth / (video.width * 1.0), screenHeight / ((video.height + headerHeight + messageboxHeight) * 1.0));
-                }
-                container.style.width = Math.round(video.width * ratio) + 'px';
-                container.style.height = Math.round(video.height * ratio) + 'px';
+                // if (video.width > screenWidth || video.height + headerHeight + messageboxHeight > screenHeight){
+                //     ratio = Math.min(screenWidth / (video.width * 1.0), screenHeight / ((video.height + headerHeight + messageboxHeight) * 1.0));
+                // }
+                // container.style.width = Math.round(video.width * ratio) + 'px';
+                // container.style.height = Math.round(video.height * ratio) + 'px';
                 canvasOutput.width = Math.round(video.width * ratio);
                 canvasOutput.height = Math.round(video.height * ratio);
                 load_cascade();
@@ -284,9 +284,12 @@ function get_ua(){
         <header id="header">
             <h1><b>Face Identification</b></h1>
         </header>
-                    <div id="notice" class="alert alert-primary" role="alert" style="max-width: 550px;">
+
+        <h4>
+                    <div id="notice" class="alert alert-primary" role="alert">
                       Look directly into the camera and take off any glasses, or headgear.
                     </div>
+        <h4>
 
             <div id="video-container">
                 <video autoplay="autoplay" class="hidden" id="videoInput" muted></video>
