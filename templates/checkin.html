@@ -70,6 +70,7 @@ function main()
     let cap = new cv.VideoCapture(video);
     let faces = new cv.RectVector();
     let classifier = new cv.CascadeClassifier();
+    video.play();
 
     class Tracker{
         constructor(){
@@ -141,6 +142,7 @@ function main()
                 let rect = new cv.Rect(Math.max(face.x-margin_x, 0), Math.max(face.y-margin_y, 0), Math.min(face.width+margin_x, src.cols), Math.min(face.height+margin_y, src.rows));
                 cropped = src.roi(rect);
                 let tempCanvas = document.createElement("canvas");
+                canvasOutput.append(tempCanvas)
                 cv.imshow(tempCanvas,src);
                 if (tracker.register(face.x, face.y, face.width, face.height)){
                     b64encoded = tempCanvas.toDataURL("image/jpeg", 0.6);
