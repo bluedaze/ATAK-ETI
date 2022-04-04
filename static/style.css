@@ -4,6 +4,10 @@ body{
     background:  #212529 !important;
  }
 
+ .hidden {
+  display: none;
+}
+
 #canvasOutput {
   width: 100%;
 }
