@@ -61,6 +61,7 @@ function load_cascade()
     let faceCascadeURL = 'static/haarcascade_frontalface_default.xml'
     let utils = new Utils('errorMessage');
     utils.createFileFromUrl(faceCascadeFile, faceCascadeURL, () => {
+        toggle_streaming();
         main();
     });
 }
@@ -187,7 +188,6 @@ function toggle_streaming()
     streaming = !streaming;
     if (streaming){
         change_notice("Wait For The Green Box", "alert-success");
-        remove_button()
     }
     main();
 }
@@ -263,7 +263,6 @@ function submit()
                 <video autoplay="true" id="videoInput" hidden></video>
                 <canvas id="canvasOutput" style="background: url('/static/camera2.png')"></canvas>
             </div>
-            <button id="streamButton" type="button" onclick="toggle_streaming()" value="Display Camera" class="btn btn-primary">Start</button>
             <div id="inputForm" hidden>
                     <div class="form-floating">
                         <input type="email" class="form-control mb-3" id="name" placeholder="name">
