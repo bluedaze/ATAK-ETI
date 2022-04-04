@@ -53,9 +53,12 @@ class DB():
         # location is in css order - top, right, bottom, left
         face_location = (0, width, height, 0)
         known_encoding = face_recognition.face_encodings(known_image, known_face_locations=[face_location])[0]
-        unknown_encoding = face_recognition.face_encodings(unknown_user)[0]
-        results = face_recognition.compare_faces([known_encoding], unknown_encoding)
-        return results[0]
+        try:
+            unknown_encoding = face_recognition.face_encodings(unknown_user)[0]
+            results = face_recognition.compare_faces([known_encoding], unknown_encoding)
+            return results[0]
+        except:
+            return None
 
     def process_request(self, user_request):
         for user in self.registered_users:
