@@ -61,7 +61,7 @@ def index():
     This is the check in system. We use this to verify individuals have access.
     '''
     return render_template(
-        "index.html",
+        "checkin.html",
     )
 
 @app.route("/start")
@@ -70,7 +70,7 @@ def start():
     This is the check in system. We use this to verify individuals have access.
     '''
     return render_template(
-        "start.html",
+        "checkin.html",
     )
 
 @app.route('/register', methods=['GET'])
