@@ -1,10 +1,10 @@
 <ul class="nav fixed-bottom bg-dark nav-pills nav-fill">
     <li class="nav-item">
-    <a {% if request.path == '/start' %}
+    <a {% if request.path == '/' %}
             class="active text-light nav-link"
          {% else %}
             class="nav-link text-light"
-         {% endif %} aria-current="page" href="/start">Home</a>
+         {% endif %} aria-current="page" href="/">Home</a>
   </li>
   <li class="nav-item">
     <a {% if request.path == '/registrants' %}

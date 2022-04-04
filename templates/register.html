@@ -233,7 +233,7 @@ function submit()
         if(XHR.readyState === XMLHttpRequest.DONE) {
             var status = XHR.status;
             if (status === 200) {
-                location.assign('/start');
+                location.assign('/');
             } else {
                 console.log( 'Oops! Something went wrong.' );
             }

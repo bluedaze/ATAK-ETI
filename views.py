@@ -54,7 +54,7 @@ def save_new_user():
     form_request["image"] = image_bytes
     db.send_to_log(form_request, 'registered_users')
 
-@app.route("/start")
+@app.route("/check")
 def checkin():
     '''
     This is the check in system. We use this to verify individuals have access.
