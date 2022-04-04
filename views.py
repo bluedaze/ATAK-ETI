@@ -54,9 +54,8 @@ def save_new_user():
     form_request["image"] = image_bytes
     db.send_to_log(form_request, 'registered_users')
 
-@app.route("/")
-@app.route("/index")
-def index():
+@app.route("/start")
+def checkin():
     '''
     This is the check in system. We use this to verify individuals have access.
     '''
@@ -64,13 +63,14 @@ def index():
         "checkin.html",
     )
 
-@app.route("/start")
-def start():
+@app.route("/")
+@app.route("/index")
+def index():
     '''
     This is the check in system. We use this to verify individuals have access.
     '''
     return render_template(
-        "checkin.html",
+        "index.html",
     )
 
 @app.route('/register', methods=['GET'])
