@@ -72,34 +72,7 @@ function main()
     let classifier = new cv.CascadeClassifier();
     video.play();
 
-    class Tracker{
-        constructor(){
-            this.arr = new Array();
-        }
-        register = function(x, y, width, height) {
-        var x_center = (x + width) / 2;
-        var y_center = (y + height) / 2;
-        var now = Date.now()
-        this.arr = this.arr.filter(ent => now - ent.time < 300);
-        for (const prop in this.arr){
-            var prop_x_center = (this.arr[prop].x + this.arr[prop].width) / 2;
-            var prop_y_center = (this.arr[prop].y + this.arr[prop].height) / 2;
-            if (Math.abs(x_center - prop_x_center) < 10 && Math.abs(y_center - prop_y_center) < 10){
-                this.arr[prop].x = x;
-                this.arr[prop].y = y;
-                this.arr[prop].width = width;
-                this.arr[prop].height = height;
-                this.arr[prop].time = now;
-                return false;
-            }
-        }
-        var ent = {x: x, y: y, width: width, height: height, time: now}
-        this.arr.push(ent)
-        return true;
-        }
-    };
 
-    var tracker = new Tracker();
     var streaming = true;
     classifier.load('haarcascade_frontalface_default.xml');
     const FPS = 30;
@@ -144,10 +117,8 @@ function main()
                 let tempCanvas = document.createElement("canvas");
                 canvasOutput.append(tempCanvas)
                 cv.imshow(tempCanvas,src);
-                if (tracker.register(face.x, face.y, face.width, face.height)){
-                    b64encoded = tempCanvas.toDataURL("image/jpeg", 0.6);
-                    submit()
-                }
+                b64encoded = tempCanvas.toDataURL("image/jpeg", 0.6);
+                submit()
             }
             // to do resize preview
             cv.resize(dst, dst, dsize, 0, 0, cv.INTER_AREA);
@@ -231,10 +202,8 @@ function submit()
                 const data = JSON.parse(XHR.responseText);
                 console.log("Name of person is", data.name);
                 var delayInMilliseconds = 1000; //1 second
-                setTimeout(function() {
-                    create_bio(data.name, data.id_num);
-                    openNav();
-                    }, delayInMilliseconds);
+                // create_bio(data.name, data.id_num);
+                // openNav();
             } else {
                 console.log( 'Oops! Something went wrong.' );
             }

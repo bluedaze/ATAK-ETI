@@ -7,9 +7,8 @@ app = Flask(__name__)
 db = DB()
 
 
-def decode_base64():
+def decode_base64(base64_string):
     ''' Decodes a base 64 image, and saves it as unknown_image.png '''
-    base64_string = request.form.get("image")
     b = io.BytesIO(base64.b64decode(base64_string))
     im = Image.open(b)
     image_bytes = io.BytesIO()
@@ -26,11 +25,18 @@ def decode_image(base64_string, name):
         fh.write(base64.decodebytes(base64_bytes))
         return fh
 
+def check_recognition(image_bytes):
+    mydb = DB()
+    data = mydb.recognize_images(image_bytes)
+    return data
+
 @app.route('/verify', methods=['POST'])
 def verify():
-    ''' Checks for a face recognition and then returns a response based on if the face is recognized '''
+    ''' Checks for a face recognition and then returns a response based on if the face is recognized'''
     user_request = dict(zip(request.form.keys(), request.form.values()))
-    data = db.process_request(user_request)
+    # ImmutableMultiDict([('image', 'b64code), ('Time', '1:47:17'), ('Date', '2022-4-5'), ('BrowserCodeName', 'Mozilla'), ('BrowserName', 'Netscape'), ('BrowserVersion', '5.0 (X11)'), ('CookiesEnabled', 'true'),
+    # decoded_image =  decode_base64(user_request["image"])
+    data = check_recognition(user_request)
     if data:
         return data
     else:
