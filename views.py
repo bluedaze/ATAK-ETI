@@ -25,40 +25,42 @@ def decode_image(base64_string, name):
         fh.write(base64.decodebytes(base64_bytes))
         return fh
 
-def check_recognition(image_bytes):
-    mydb = DB()
-    data = mydb.recognize_images(image_bytes)
-    return data
 
 @app.route('/verify', methods=['POST'])
 def verify():
     ''' Checks for a face recognition and then returns a response based on if the face is recognized'''
+    db = DB()
     user_request = dict(zip(request.form.keys(), request.form.values()))
+
     # ImmutableMultiDict([('image', 'b64code), ('Time', '1:47:17'), ('Date', '2022-4-5'), ('BrowserCodeName', 'Mozilla'), ('BrowserName', 'Netscape'), ('BrowserVersion', '5.0 (X11)'), ('CookiesEnabled', 'true'),
     # decoded_image =  decode_base64(user_request["image"])
-    data = check_recognition(user_request)
-    if data:
-        return data
-    else:
+    try:
+        data = db.recognize_images(user_request)
+        if data:
+            return data
+    except:
         return "Record not found", 400
 
 def transaction_template(database_name):
-    logs = db.get_logs(database_name)
+    header, rows = db.get_logs(database_name)
     return render_template(
         "transactionLogs.html",
-        logs=logs
+        header=header, rows=rows
     )
 
 @app.route('/save', methods=['POST'])
 def save_new_user():
     ''' Registers a user to the database '''
-    form_request = dict(zip(request.form.keys(), request.form.values()))
+    x = 1
+    user_request = dict(zip(request.form.keys(), request.form.values()))
     # replacement method
     # base64_string = request.form.get("image")
     # decode_image(base64_string, "unknown_image.png")
-    image_bytes = decode_base64()
-    form_request["image"] = image_bytes
-    db.send_to_log(form_request, 'registered_users')
+    db.save_image(user_request)
+    db.send_to_log(user_request, 'registered_users')
+    return render_template(
+        "index.html",
+    )
 
 @app.route("/checkin")
 def checkin():
