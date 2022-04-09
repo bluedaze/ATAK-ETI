@@ -148,7 +148,7 @@ function insert_ua(obj){
 function encode_data(){
     dateTime = getDateTime()
     b64encoded = b64encoded.replace('data:image/jpeg;base64,', '')
-    let data = {image: b64encoded, Time: dateTime.time, Date: dateTime.date}
+    let data = {image: b64encoded, Time: dateTime.time, Date: dateTime.date, Name: "UNKNOWN", "ID Number": "UNKNOWN"}
     data = insert_ua(data)
     let urlEncodedData = "",
         urlEncodedDataPairs = [],
@@ -170,7 +170,7 @@ function create_bio(name, id)
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <div id="info">${name}<br>Personel ID: ${id}<br><br>
+        <div id="info">${Name}<br>Personel ID: ${id}<br><br>
             <div style="text-align: left;">Sean Preston Pedigo is a 34-year-old celebrity chef who enjoys reading, yoga and cycling. 
                 He is smart and creative, but can also be very lazy and a bit stingy. He is Italian. He started studying food science at college but never finished the course. 
                 He is obsessed with tank tops. Physically, Sean is slightly overweight but otherwise in good shape. He is tall with dark chocolate skin, grey hair and green eyes. 
@@ -200,9 +200,9 @@ function submit()
             if (status === 0 || (status >= 200 && status < 400)) {
                 console.log(XHR.responseText);
                 const data = JSON.parse(XHR.responseText);
-                console.log("Name of person is", data.name);
+                console.log("Name of person is", data.Name);
                 var delayInMilliseconds = 1000; //1 second
-                // create_bio(data.name, data.id_num);
+                // create_bio(data.Name, data.id_num);
                 // openNav();
             } else {
                 console.log( 'Oops! Something went wrong.' );
@@ -226,14 +226,10 @@ function getDateTime(){
 
 function get_ua(){
     return {
-        "BrowserCodeName": navigator.appCodeName,
-        "BrowserName": navigator.appName,
-        "BrowserVersion": navigator.appVersion,
-        "CookiesEnabled": navigator.cookieEnabled,
-        "BrowserLanguage": navigator.language,
-        "BrowserOnline": navigator.onLine,
-        "Platform": navigator.platform,
-        "UserAgentHeader": navigator.userAgent
+        "Cookies Enabled": navigator.cookieEnabled,
+        "Browser Language": navigator.language,
+        "Browser Online": navigator.onLine,
+        "User Agent": navigator.userAgent
         }
 }
 

@@ -208,17 +208,50 @@ function create_form(){
     var currentNode = document.querySelector('#inputForm').hidden = false;
 }
 
+function getDateTime(){
+        const d = new Date();
+        date = `${d.getFullYear()}-${d.getMonth() + 1}-${day = d.getDate()}`
+        time = `${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`
+        return {
+            "time": time,
+            "date": date
+        }
+    }
+
+function get_ua(){
+    return {
+        "Cookies Enabled": navigator.cookieEnabled,
+        "Browser Language": navigator.language,
+        "Browser Online": navigator.onLine,
+        "User Agent": navigator.userAgent
+        }
+}
+
+function insert_ua(obj){
+    ua = get_ua()
+    keys = Object.keys(ua)
+    values = Object.values(ua)
+    for (var i = 0; i < keys.length; i++) {
+        obj[keys[i]] = values[i];
+
+    } 
+    console.log(obj)
+    return obj
+}
+
 function encode_data(){
     let user_id = document.getElementById('id_num').value;
     let user_name = document.getElementById('name').value;
-    b64encoded = b64encoded.replace('data:image/jpeg;base64,', '');
-    let data = {id_num: user_id, name: user_name, image: b64encoded};
+    dateTime = getDateTime()
+    b64encoded = b64encoded.replace('data:image/jpeg;base64,', '')
+    let data = {image: b64encoded, Time: dateTime.time, Date: dateTime.date, Name: user_name, "ID Number": user_id}
+    data = insert_ua(data)
     let urlEncodedData = "",
         urlEncodedDataPairs = [],
         name;
     for( name in data ) {
         urlEncodedDataPairs.push( encodeURIComponent( name ) + '=' + encodeURIComponent( data[name] ) );
-    };
+    }
     urlEncodedData = urlEncodedDataPairs.join( '&' ).replace( /%20/g, '+' );
     return urlEncodedData;
 }
